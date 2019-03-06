@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProBot", "ProBot\ProBot.csproj", "{B00DF56F-0F20-4829-8920-3F3D1B5F57DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B00DF56F-0F20-4829-8920-3F3D1B5F57DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B00DF56F-0F20-4829-8920-3F3D1B5F57DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B00DF56F-0F20-4829-8920-3F3D1B5F57DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B00DF56F-0F20-4829-8920-3F3D1B5F57DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FBD11BE8-72DD-446C-BA86-7DCCB7DDD9D0}
+	EndGlobalSection
+EndGlobal
