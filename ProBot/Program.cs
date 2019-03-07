@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ProBot
 {
@@ -19,6 +19,14 @@ namespace ProBot
             throw new NotImplementedException();
         }
 
+        private static void GetInstructions()
+        {
+            string wanted_path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\Instructions.txt"));
+            var streamReader = new StreamReader(wanted_path);
 
+            var line = streamReader.ReadLine();
+
+            streamReader.Dispose();
+        }
     }
 }
