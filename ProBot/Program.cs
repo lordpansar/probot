@@ -75,13 +75,16 @@ namespace ProBot
             
             return newDirection;
         }
+        public static Instruction GetInstructions()
         {
-            string wanted_path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\Instructions.txt"));
-            var streamReader = new StreamReader(wanted_path);
+            string path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\Instructions.txt"));
 
-            var line = streamReader.ReadLine();
+            var lineArray = File.ReadAllLines(path);
+            var rawInstructions = new List<string>(lineArray);
 
-            streamReader.Dispose();
+            var cleanedInstructions = CleanRawInstructions(rawInstructions);
+
+            return cleanedInstructions;
         }
     }
 }
