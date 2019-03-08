@@ -12,9 +12,9 @@ namespace ProBot.Tests
         [InlineData("WEST", Direction.WEST)]
         public void AssertThatDirectionCanBeRetrieved(string input, Direction direction)
         {
-            var output = Program.GetDirection(input);
+            var returnValue = Program.GetDirection(input);
 
-            Assert.Equal(direction, output);
+            Assert.Equal(direction, returnValue);
         }
 
         [Fact]
@@ -37,9 +37,9 @@ namespace ProBot.Tests
                 StartPosition = new Position { Horizontal = 0, Vertical = 1 }
             };
 
-            var cleanedInstructions = Program.CleanRawInstructions(setup);
+            var returnValue = Program.CleanRawInstructions(setup);
 
-            var areEqual = CompareInstructions(cleanedInstructions, correctlyCleanedInstruction);
+            var areEqual = CompareInstructions(returnValue, correctlyCleanedInstruction);
 
             Assert.True(areEqual);
         }
