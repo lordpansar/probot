@@ -30,10 +30,48 @@ namespace ProBot
             }
         }
 
-        private void CheckForIllegalMove()
+        public static Direction Turn(string turn, Direction currentDirection)
         {
-            throw new NotImplementedException();
-        }
+            Direction newDirection = new Direction();
+
+            if(turn == "LEFT")
+            {
+                if (currentDirection == Direction.NORTH)
+                {
+                    newDirection = Direction.WEST;
+                }
+                if (currentDirection == Direction.EAST)
+                {
+                    newDirection = Direction.NORTH;
+                }
+                if (currentDirection == Direction.SOUTH)
+                {
+                    newDirection = Direction.EAST;
+                }
+                if (currentDirection == Direction.WEST)
+                {
+                    newDirection = Direction.SOUTH;
+                }
+            }
+            else
+            {
+                if (currentDirection == Direction.NORTH)
+                {
+                    newDirection = Direction.EAST;
+                }
+                if (currentDirection == Direction.EAST)
+                {
+                    newDirection = Direction.SOUTH;
+                }
+                if (currentDirection == Direction.SOUTH)
+                {
+                    newDirection = Direction.WEST;
+                }
+                if (currentDirection == Direction.WEST)
+                {
+                    newDirection = Direction.NORTH;
+                }
+            }
 
         private static void GetInstructions()
         {
