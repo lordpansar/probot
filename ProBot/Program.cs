@@ -14,7 +14,7 @@ namespace ProBot
             Move(instruction);
         }
 
-        private void Move()
+        public static void Move(Instruction instruction)
         {
             throw new NotImplementedException();
         public static bool CheckForIllegalMove(int vertical, int horizontal)
