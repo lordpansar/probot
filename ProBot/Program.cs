@@ -72,8 +72,9 @@ namespace ProBot
                     newDirection = Direction.NORTH;
                 }
             }
-
-        private static void GetInstructions()
+            
+            return newDirection;
+        }
         {
             string wanted_path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\Instructions.txt"));
             var streamReader = new StreamReader(wanted_path);
