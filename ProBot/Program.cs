@@ -17,6 +17,17 @@ namespace ProBot
         private void Move()
         {
             throw new NotImplementedException();
+        public static bool CheckForIllegalMove(int vertical, int horizontal)
+        {
+            if(horizontal > 5 || horizontal < 0 || vertical > 5 || vertical < 0)
+            {
+                return true;
+            }
+            else
+            {
+                Message.OutOfBounds();
+                return false;
+            }
         }
 
         private void CheckForIllegalMove()
