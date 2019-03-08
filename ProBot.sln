@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProBot", "ProBot\ProBot.csproj", "{B00DF56F-0F20-4829-8920-3F3D1B5F57DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Probot.Tests", "Probot.Tests\Probot.Tests.csproj", "{23FD0F96-9A94-4590-AC35-6136B3FF114F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProBot.Tests", "Probot.Tests\ProBot.Tests.csproj", "{23FD0F96-9A94-4590-AC35-6136B3FF114F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

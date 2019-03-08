@@ -1,7 +1,7 @@
 using ProBot;
 using Xunit;
 
-namespace Probot.Tests
+namespace ProBot.Tests
 {
     public class Tests
     {
