@@ -7,6 +7,9 @@ namespace ProBot
         static void Main(string[] args)
         {
             var table = new int[5,5];
+            var instruction = GetInstructions();
+
+            Move(instruction);
         }
 
         private void Move()
