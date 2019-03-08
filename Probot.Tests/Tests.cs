@@ -5,12 +5,16 @@ namespace ProBot.Tests
 {
     public class Tests
     {
-        [Fact]
-        public void AssertThatDirectionCanBeRetrieved()
+        [Theory]
+        [InlineData("NORTH", Direction.NORTH)]
+        [InlineData("EAST", Direction.EAST)]
+        [InlineData("SOUTH", Direction.SOUTH)]
+        [InlineData("WEST", Direction.WEST)]
+        public void AssertThatDirectionCanBeRetrieved(string input, Direction direction)
         {
-            var direction = Program.GetDirection("EAST");
+            var output = Program.GetDirection(input);
 
-            Assert.Equal(Direction.EAST, direction);
+            Assert.Equal(direction, output);
         }
 
         [Fact]
