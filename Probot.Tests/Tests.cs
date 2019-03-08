@@ -44,6 +44,22 @@ namespace ProBot.Tests
             Assert.True(areEqual);
         }
 
+        [Theory]
+        [InlineData("LEFT", Direction.NORTH, Direction.WEST)]
+        [InlineData("LEFT", Direction.EAST, Direction.NORTH)]
+        [InlineData("LEFT", Direction.SOUTH, Direction.EAST)]
+        [InlineData("LEFT", Direction.WEST, Direction.SOUTH)]
+        [InlineData("RIGHT", Direction.NORTH, Direction.EAST)]
+        [InlineData("RIGHT", Direction.EAST, Direction.SOUTH)]
+        [InlineData("RIGHT", Direction.SOUTH, Direction.WEST)]
+        [InlineData("RIGHT", Direction.WEST, Direction.NORTH)]
+        public void AssertThatRobotCanTurn(string turn, Direction currentDirection, Direction newDirection)
+        {
+            var returnValue = Program.Turn(turn, currentDirection);
+
+            Assert.Equal(newDirection, returnValue);
+        }
+
         private bool CompareInstructions(Instruction cleanedInstruction, Instruction correctlyCleanedInstruction)
         {
             if(cleanedInstruction.Direction != correctlyCleanedInstruction.Direction)
