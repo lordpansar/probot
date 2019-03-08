@@ -75,6 +75,7 @@ namespace ProBot
             
             return newDirection;
         }
+
         public static Instruction GetInstructions()
         {
             string path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\Instructions.txt"));
@@ -85,6 +86,31 @@ namespace ProBot
             var cleanedInstructions = CleanRawInstructions(rawInstructions);
 
             return cleanedInstructions;
+        }
+        public static Direction GetDirection(string input)
+        {
+            Direction direction = new Direction();
+
+            switch (input)
+            {
+                case "NORTH":
+                    direction = Direction.NORTH;
+                    break;
+                case "EAST":
+                    direction = Direction.EAST;
+                    break;
+                case "SOUTH":
+                    direction = Direction.SOUTH;
+                    break;
+                case "WEST":
+                    direction = Direction.WEST;
+                    break;
+                default:
+                    direction = Direction.ILLEGAL;
+                    break;
+            }
+
+            return direction;
         }
     }
 }
