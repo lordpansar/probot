@@ -6,47 +6,85 @@ namespace ProBot
 {
     public class InstructionService
     {
-        public Instruction GetInstructions()
+        public List<Instruction> GetInstructions()
         {
             string path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\Instructions.txt"));
 
             var lineArray = File.ReadAllLines(path);
             var rawInstructions = new List<string>(lineArray);
 
-            var cleanedInstructions = ParseRawInstructions(rawInstructions);
+            var parsedInstructions = ParseRawInstructions(rawInstructions);
 
-            return cleanedInstructions;
+            return parsedInstructions;
         }
 
-        public Instruction ParseRawInstructions(List<string> rawInstructionsList)
+        public List<Instruction> ParseRawInstructions(List<string> rawInstructionsList)
         {
-            //TODO: Skriv klart denna metod så den hanterar alla typer av instruktioner
-            var instruction = new Instruction();
-            var instructionsList = new List<string>();
+            var instructions = new List<Instruction>();
 
             foreach (var rawInstruction in rawInstructionsList)
             {
+                var instruction = new Instruction();
+
                 if (rawInstruction.Contains("PLACE"))
                 {
                     var values = rawInstruction.Split(',');
 
-                    instruction.StartPosition.Vertical = int.Parse(values[0].Substring(values[0].Length - 1));
-                    instruction.StartPosition.Horizontal = int.Parse(values[1]);
+                    instruction.Type = InstructionType.PLACE;
+                    instruction.Position.Vertical = int.Parse(values[0].Substring(values[0].Length - 1));
+                    instruction.Position.Horizontal = int.Parse(values[1]);
                     instruction.Direction = ParseDirection(values[2]);
-
+                    
+                    instructions.Add(instruction);
                     continue;
                 }
+                else if(rawInstruction == "MOVE")
+                {
+                    instruction.Type = InstructionType.MOVE;
+                    instruction.Position.Vertical = instructions[0].Position.Vertical;
+                    instruction.Position.Horizontal = instructions[0].Position.Horizontal;
+                    instruction.Direction = instructions[0].Direction;
 
+                    instructions.Add(instruction);
+                    continue;
+                }
+                else if(rawInstruction == "LEFT")
+                {
+                    instruction.Type = InstructionType.LEFT;
+                    instruction.Position.Vertical = instructions[0].Position.Vertical;
+                    instruction.Position.Horizontal = instructions[0].Position.Horizontal;
+                    instruction.Direction = instructions[0].Direction;
+                    
+                    instructions.Add(instruction);
+                    continue;
+                }
+                else if (rawInstruction == "RIGHT")
+                {
+                    instruction.Type = InstructionType.RIGHT;
+                    instruction.Position.Vertical = instructions[0].Position.Vertical;
+                    instruction.Position.Horizontal = instructions[0].Position.Horizontal;
+                    instruction.Direction = instructions[0].Direction;
+                    
+                    instructions.Add(instruction);
+                    continue;
+                }
+                else if(rawInstruction == "REPORT")
+                {
+                    instruction.Type = InstructionType.REPORT;
+                    instruction.Position.Vertical = instructions[0].Position.Vertical;
+                    instruction.Position.Horizontal = instructions[0].Position.Horizontal;
+                    instruction.Direction = instructions[0].Direction;
+
+                    instructions.Add(instruction);
+                    continue;
+                }
                 else
                 {
-                    instructionsList.Add(rawInstruction);
                     continue;
                 }
             }
 
-            instruction.InstructionsList = instructionsList;
-
-            return instruction;
+            return instructions;
         }
 
         public Direction ParseDirection(string input)
