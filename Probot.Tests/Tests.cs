@@ -58,49 +58,63 @@ namespace ProBot.Tests
         public void AssertThatRawInstructionsGetsParsed()
         {
             var setup = new List<string> { "PLACE 0,1,EAST", "MOVE", "REPORT" };
+            var instructionsList = new List<Instruction>();
 
-            var correctlyParsedInstruction = new Instruction
-            {
-                Direction = Direction.EAST,
-                InstructionsList = new List<string>(),
-                StartPosition = new Position { Vertical = 0, Horizontal = 1 }
-            };
+            var place = new Instruction { Type = InstructionType.PLACE, Direction = Direction.EAST, Position = new Position { Vertical = 0, Horizontal = 1 } };
+            var move = new Instruction { Type = InstructionType.MOVE, Direction = Direction.EAST, Position = new Position { Vertical = 0, Horizontal = 1 } };
+            var report = new Instruction { Type = InstructionType.REPORT, Direction = Direction.EAST, Position = new Position { Vertical = 0, Horizontal = 1 } };
+
+            instructionsList.Add(place);
+            instructionsList.Add(move);
+            instructionsList.Add(report);
 
             var returnValue = instructionService.ParseRawInstructions(setup);
 
-            var areEqual = CompareInstructions(returnValue, correctlyParsedInstruction);
+            var areEqual = CompareInstructionLists(returnValue, instructionsList);
 
             Assert.True(areEqual);
         }
 
         [Theory]
-        [InlineData("LEFT", Direction.NORTH, Direction.WEST)]
-        [InlineData("LEFT", Direction.EAST, Direction.NORTH)]
-        [InlineData("LEFT", Direction.SOUTH, Direction.EAST)]
-        [InlineData("LEFT", Direction.WEST, Direction.SOUTH)]
-        [InlineData("RIGHT", Direction.NORTH, Direction.EAST)]
-        [InlineData("RIGHT", Direction.EAST, Direction.SOUTH)]
-        [InlineData("RIGHT", Direction.SOUTH, Direction.WEST)]
-        [InlineData("RIGHT", Direction.WEST, Direction.NORTH)]
-        public void AssertThatRobotCanTurn(string turn, Direction currentDirection, Direction newDirection)
+        [InlineData(InstructionType.LEFT, Direction.NORTH, Direction.WEST)]
+        [InlineData(InstructionType.LEFT, Direction.EAST, Direction.NORTH)]
+        [InlineData(InstructionType.LEFT, Direction.SOUTH, Direction.EAST)]
+        [InlineData(InstructionType.LEFT, Direction.WEST, Direction.SOUTH)]
+        [InlineData(InstructionType.RIGHT, Direction.NORTH, Direction.EAST)]
+        [InlineData(InstructionType.RIGHT, Direction.EAST, Direction.SOUTH)]
+        [InlineData(InstructionType.RIGHT, Direction.SOUTH, Direction.WEST)]
+        [InlineData(InstructionType.RIGHT, Direction.WEST, Direction.NORTH)]
+        public void AssertThatRobotCanTurn(InstructionType turn, Direction currentDirection, Direction newDirection)
         {
             var returnValue = movementService.Turn(turn, currentDirection);
 
             Assert.Equal(newDirection, returnValue);
         }
 
-        private bool CompareInstructions(Instruction cleanedInstruction, Instruction correctlyCleanedInstruction)
+        private bool CompareInstructionLists(List<Instruction> expected, List<Instruction> actual)
         {
-            if(cleanedInstruction.Direction != correctlyCleanedInstruction.Direction)
+            if (expected.Count != actual.Count)
+            {
                 return false;
-            if (cleanedInstruction.InstructionsList.Equals(correctlyCleanedInstruction.InstructionsList))
-                return false;
-            if (cleanedInstruction.StartPosition.Horizontal != correctlyCleanedInstruction.StartPosition.Horizontal)
-                return false;
-            if (cleanedInstruction.StartPosition.Vertical != correctlyCleanedInstruction.StartPosition.Vertical)
-                return false;
-            else
-                return true;
+            }
+            
+            for (int i = 0; i < actual.Count; i++)
+            {
+                if(expected[i].Direction != actual[i].Direction)
+                {
+                    return false;
+                }
+                if (expected[i].Type != actual[i].Type)
+                {
+                    return false;
+                }
+                if (expected[i].Position.Vertical != actual[i].Position.Vertical || expected[i].Position.Horizontal != actual[i].Position.Horizontal)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

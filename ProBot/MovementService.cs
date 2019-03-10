@@ -1,29 +1,34 @@
-﻿namespace ProBot
+﻿using System.Collections.Generic;
+
+namespace ProBot
 {
     public class MovementService
     {
-        public void Move(Instruction instructions)
+        public void Move(List<Instruction> instructions)
         {
-            var currentVertical = instructions.StartPosition.Vertical;
-            var currentHorizontal = instructions.StartPosition.Horizontal;
-            var currentDirection = instructions.Direction;
+            var startingPlacement = instructions[0];
+
+            var currentVertical = startingPlacement.Position.Vertical;
+            var currentHorizontal = startingPlacement.Position.Horizontal;
+            var currentDirection = startingPlacement.Direction;
 
             int nextVertical = 0;
             int nextHorizontal = 0;
 
             bool isIllegal;
 
-            //Check if placement is outside the table
+            //Check if starting placement is outside the table
             isIllegal = CheckForIllegalMove(currentVertical, currentHorizontal);
 
             if (isIllegal)
             {
+                Message.PlacedOutsideTable(currentVertical, currentHorizontal);
                 return;
             }
 
-            foreach (var instruction in instructions.InstructionsList)
+            foreach (var instruction in instructions)
             {
-                if (instruction == "MOVE")
+                if (instruction.Type == InstructionType.MOVE)
                 {
                     if (currentDirection == Direction.NORTH)
                     {
@@ -56,6 +61,7 @@
 
                     if (isIllegal)
                     {
+                        Message.OutOfBounds(nextVertical, nextHorizontal);
                         continue;
                     }
 
@@ -67,15 +73,15 @@
                     }
                 }
 
-                if (instruction == "REPORT")
+                if (instruction.Type == InstructionType.REPORT)
                 {
                     Message.PrintReport(currentVertical, currentHorizontal, currentDirection);
                     continue;
                 }
 
-                if (instruction == "LEFT" || instruction == "RIGHT")
+                if (instruction.Type == InstructionType.LEFT || instruction.Type == InstructionType.RIGHT)
                 {
-                    currentDirection = Turn(instruction, currentDirection);
+                    currentDirection = Turn(instruction.Type, currentDirection);
                     continue;
                 }
             }
@@ -85,7 +91,7 @@
         {
             if (horizontal > 5 || horizontal < 0 || vertical > 5 || vertical < 0)
             {
-                Message.OutOfBounds(vertical, horizontal);
+                //Message.OutOfBounds(vertical, horizontal);
                 return true;
             }
             else
@@ -94,11 +100,11 @@
             }
         }
 
-        public Direction Turn(string turn, Direction currentDirection)
+        public Direction Turn(InstructionType turn, Direction currentDirection)
         {
             Direction newDirection = new Direction();
 
-            if (turn == "LEFT")
+            if (turn == InstructionType.LEFT)
             {
                 if (currentDirection == Direction.NORTH)
                 {
