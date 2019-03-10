@@ -14,9 +14,84 @@ namespace ProBot
             Move(instruction);
         }
 
-        public static void Move(Instruction instruction)
+        public static void Move(Instruction instructions)
         {
-            throw new NotImplementedException();
+            var currentVertical = instructions.StartPosition.Vertical;
+            var currentHorizontal = instructions.StartPosition.Horizontal;
+            var currentDirection = instructions.Direction;
+
+            int nextVertical = 0;
+            int nextHorizontal = 0;
+
+            bool isIllegal;
+
+            //Check if placement is outside the table
+            isIllegal = CheckForIllegalMove(currentVertical, currentHorizontal);
+
+            if(isIllegal)
+            {
+                return;
+            }
+
+            foreach (var instruction in instructions.InstructionsList)
+            {
+                 if(instruction == "MOVE")       
+                 {       
+                     if(currentDirection == Direction.NORTH)       
+                     {       
+                        nextVertical = currentVertical - 1;       
+                        nextHorizontal = currentHorizontal;       
+
+                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
+                     }       
+                     if (currentDirection == Direction.EAST)       
+                     {       
+                        nextVertical = currentVertical;       
+                        nextHorizontal = currentHorizontal + 1;       
+
+                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
+                     }       
+                     if (currentDirection == Direction.SOUTH)       
+                     {       
+                        nextVertical = currentVertical + 1;       
+                        nextHorizontal = currentHorizontal;       
+
+                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
+                     }       
+                     if (currentDirection == Direction.WEST)       
+                     {       
+                        nextVertical = currentVertical;       
+                        nextHorizontal = currentHorizontal - 1;       
+
+                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
+                     }       
+
+                     if(isIllegal)
+                     {
+                        continue;
+                     }
+
+                     if(!isIllegal)       
+                     {       
+                        currentVertical = nextVertical;       
+                        currentHorizontal = nextHorizontal;       
+                        continue;       
+                     }
+                 }       
+
+                 if(instruction == "REPORT")       
+                 {       
+                     Message.PrintReport(currentHorizontal, currentVertical, currentDirection);       
+                 }       
+
+                 if(instruction == "LEFT" || instruction == "RIGHT")       
+                 {       
+                     currentDirection = Turn(instruction, currentDirection);       
+                     continue;       
+                 }       
+            }
+        }
+
         public static bool CheckForIllegalMove(int vertical, int horizontal)
         {
             if(horizontal > 5 || horizontal < 0 || vertical > 5 || vertical < 0)
