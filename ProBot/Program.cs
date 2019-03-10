@@ -97,7 +97,7 @@ namespace ProBot
         {
             if(horizontal > 5 || horizontal < 0 || vertical > 5 || vertical < 0)
             {
-                Message.OutOfBounds();
+                Message.OutOfBounds(vertical, horizontal);
                 return true;
             }
             else

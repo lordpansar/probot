@@ -4,9 +4,9 @@ namespace ProBot
 {
     public static class Message
     {
-        public static void OutOfBounds()
+        public static void OutOfBounds(int vertical, int horizontal)
         {
-            Console.WriteLine("The instructed move is illegal. ProBot does not approve of your shenanigans.");
+            Console.WriteLine($"The instructed move to {vertical},{horizontal} is illegal. ProBot does not approve of your shenanigans.");
         }
 
         public static void PrintMove()
