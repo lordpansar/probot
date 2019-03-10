@@ -26,20 +26,20 @@ namespace ProBot.Tests
         }
 
         [Fact]
-        public void AssertThatRawInstructionsGetCleaned()
+        public void AssertThatRawInstructionsGetsParsed()
         {
             var setup = new List<string> { "PLACE 0,1,EAST", "MOVE", "REPORT" };
 
-            var correctlyCleanedInstruction = new Instruction
+            var correctlyParsedInstruction = new Instruction
             {
                 Direction = Direction.EAST,
                 InstructionsList = new List<string>(),
                 StartPosition = new Position { Horizontal = 0, Vertical = 1 }
             };
 
-            var returnValue = Program.CleanRawInstructions(setup);
+            var returnValue = Program.ParseRawInstructions(setup);
 
-            var areEqual = CompareInstructions(returnValue, correctlyCleanedInstruction);
+            var areEqual = CompareInstructions(returnValue, correctlyParsedInstruction);
 
             Assert.True(areEqual);
         }

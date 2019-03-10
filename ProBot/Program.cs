@@ -83,11 +83,42 @@ namespace ProBot
             var lineArray = File.ReadAllLines(path);
             var rawInstructions = new List<string>(lineArray);
 
-            var cleanedInstructions = CleanRawInstructions(rawInstructions);
+            var cleanedInstructions = ParseRawInstructions(rawInstructions);
 
             return cleanedInstructions;
         }
-        public static Direction GetDirection(string input)
+
+        public static Instruction ParseRawInstructions(List<string> rawInstructionsList)
+        {
+            //TODO: Skriv klart denna metod så den hanterar alla typer av instruktioner
+            var instruction = new Instruction();
+            var instructionsList = new List<string>();
+
+            foreach (var rawInstruction in rawInstructionsList)
+            {
+                if(rawInstruction.Contains("PLACE"))
+                {
+                    var values = rawInstruction.Split(',');
+                    
+                    instruction.StartPosition.Horizontal = int.Parse(values[0].Substring(values[0].Length - 1));
+                    instruction.StartPosition.Vertical = int.Parse(values[1]);
+                    instruction.Direction = ParseDirection(values[2]);
+                    
+                    continue;
+                }
+
+                else
+                {
+                    instructionsList.Add(rawInstruction);
+                    continue;
+                }
+            }
+
+            instruction.InstructionsList = instructionsList;
+
+            return instruction;
+        }
+
         public static Direction ParseDirection(string input)
         {
             Direction direction = new Direction();
