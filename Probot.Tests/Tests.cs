@@ -25,6 +25,26 @@ namespace ProBot.Tests
             Assert.Equal(Direction.ILLEGAL, direction);
         }
 
+        [Theory]
+        [InlineData(6,6)]
+        [InlineData(-1, 5)]
+        [InlineData(2, -1)]
+        [InlineData(-1, -1)]
+        public void AssertThatIllegalMoveIsDetected(int vertical, int horizontal)
+        {
+            var isIllegal = Program.CheckForIllegalMove(vertical, horizontal);
+            Assert.True(isIllegal);
+        }
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(5, 5)]
+        public void AssertThatLegalMoveIsApproved(int vertical, int horizontal)
+        {
+            var isIllegal = Program.CheckForIllegalMove(vertical, horizontal);
+            Assert.False(isIllegal);
+        }
+
         [Fact]
         public void AssertThatRawInstructionsGetsParsed()
         {
