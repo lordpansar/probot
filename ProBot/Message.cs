@@ -14,9 +14,9 @@ namespace ProBot
             throw new NotImplementedException();
         }
 
-        public static void PrintReport(int horizontal, int vertical, Direction direction)
+        public static void PrintReport(int vertical, int horizontal, Direction direction)
         {
-            Console.WriteLine($"{horizontal}, {vertical}, {direction.ToString()}\n\nPress enter to exit");
+            Console.WriteLine($"{vertical}, {horizontal}, {direction.ToString()}\n\nPress enter to exit");
             Console.ReadLine();
         }
     }
