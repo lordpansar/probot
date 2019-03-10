@@ -81,7 +81,8 @@ namespace ProBot
 
                  if(instruction == "REPORT")       
                  {       
-                     Message.PrintReport(currentHorizontal, currentVertical, currentDirection);       
+                     Message.PrintReport(currentVertical, currentHorizontal, currentDirection);
+                     continue;
                  }       
 
                  if(instruction == "LEFT" || instruction == "RIGHT")       
