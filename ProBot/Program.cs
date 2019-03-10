@@ -35,61 +35,61 @@ namespace ProBot
 
             foreach (var instruction in instructions.InstructionsList)
             {
-                 if(instruction == "MOVE")       
-                 {       
-                     if(currentDirection == Direction.NORTH)       
-                     {       
-                        nextVertical = currentVertical - 1;       
-                        nextHorizontal = currentHorizontal;       
+                if(instruction == "MOVE")       
+                {       
+                    if(currentDirection == Direction.NORTH)       
+                    {       
+                       nextVertical = currentVertical - 1;       
+                       nextHorizontal = currentHorizontal;       
 
-                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
-                     }       
-                     if (currentDirection == Direction.EAST)       
-                     {       
-                        nextVertical = currentVertical;       
-                        nextHorizontal = currentHorizontal + 1;       
+                       isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
+                    }       
+                    else if (currentDirection == Direction.EAST)       
+                    {       
+                       nextVertical = currentVertical;       
+                       nextHorizontal = currentHorizontal + 1;       
 
-                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
-                     }       
-                     if (currentDirection == Direction.SOUTH)       
-                     {       
-                        nextVertical = currentVertical + 1;       
-                        nextHorizontal = currentHorizontal;       
+                       isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
+                    }       
+                    else if (currentDirection == Direction.SOUTH)       
+                    {       
+                       nextVertical = currentVertical + 1;       
+                       nextHorizontal = currentHorizontal;       
 
-                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
-                     }       
-                     if (currentDirection == Direction.WEST)       
-                     {       
-                        nextVertical = currentVertical;       
-                        nextHorizontal = currentHorizontal - 1;       
+                       isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
+                    }       
+                    else if (currentDirection == Direction.WEST)       
+                    {       
+                       nextVertical = currentVertical;       
+                       nextHorizontal = currentHorizontal - 1;       
 
-                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
-                     }       
+                       isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);       
+                    }       
 
-                     if(isIllegal)
-                     {
-                        continue;
-                     }
+                    if(isIllegal)
+                    {
+                       continue;
+                    }
 
-                     if(!isIllegal)       
-                     {       
-                        currentVertical = nextVertical;       
-                        currentHorizontal = nextHorizontal;       
-                        continue;       
-                     }
-                 }       
+                    if(!isIllegal)       
+                    {       
+                       currentVertical = nextVertical;       
+                       currentHorizontal = nextHorizontal;       
+                       continue;       
+                    }
+                }       
 
-                 if(instruction == "REPORT")       
-                 {       
-                     Message.PrintReport(currentVertical, currentHorizontal, currentDirection);
-                     continue;
-                 }       
+                if(instruction == "REPORT")       
+                {       
+                    Message.PrintReport(currentVertical, currentHorizontal, currentDirection);
+                    continue;
+                }       
 
-                 if(instruction == "LEFT" || instruction == "RIGHT")       
-                 {       
-                     currentDirection = Turn(instruction, currentDirection);       
-                     continue;       
-                 }       
+                if(instruction == "LEFT" || instruction == "RIGHT")       
+                {       
+                    currentDirection = Turn(instruction, currentDirection);       
+                    continue;       
+                }       
             }
         }
 
