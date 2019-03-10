@@ -10,9 +10,9 @@ namespace ProBot.Tests
         [InlineData("EAST", Direction.EAST)]
         [InlineData("SOUTH", Direction.SOUTH)]
         [InlineData("WEST", Direction.WEST)]
-        public void AssertThatDirectionCanBeRetrieved(string input, Direction direction)
+        public void AssertThatDirectionCanBeParsed(string input, Direction direction)
         {
-            var returnValue = Program.GetDirection(input);
+            var returnValue = Program.ParseDirection(input);
 
             Assert.Equal(direction, returnValue);
         }
@@ -20,7 +20,7 @@ namespace ProBot.Tests
         [Fact]
         public void AssertThatFaultyDirectionIsSetToIllegal()
         {
-            var direction = Program.GetDirection("NORTHWEST");
+            var direction = Program.ParseDirection("NORTHWEST");
 
             Assert.Equal(Direction.ILLEGAL, direction);
         }
@@ -33,7 +33,7 @@ namespace ProBot.Tests
             var correctlyCleanedInstruction = new Instruction
             {
                 Direction = Direction.EAST,
-                Moves = new List<string>(),
+                InstructionsList = new List<string>(),
                 StartPosition = new Position { Horizontal = 0, Vertical = 1 }
             };
 
@@ -64,7 +64,7 @@ namespace ProBot.Tests
         {
             if(cleanedInstruction.Direction != correctlyCleanedInstruction.Direction)
                 return false;
-            if (cleanedInstruction.Moves.Equals(correctlyCleanedInstruction.Moves))
+            if (cleanedInstruction.InstructionsList.Equals(correctlyCleanedInstruction.InstructionsList))
                 return false;
             if (cleanedInstruction.StartPosition.Horizontal != correctlyCleanedInstruction.StartPosition.Horizontal)
                 return false;

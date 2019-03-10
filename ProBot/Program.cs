@@ -88,6 +88,7 @@ namespace ProBot
             return cleanedInstructions;
         }
         public static Direction GetDirection(string input)
+        public static Direction ParseDirection(string input)
         {
             Direction direction = new Direction();
 
