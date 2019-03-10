@@ -176,8 +176,8 @@ namespace ProBot
                 {
                     var values = rawInstruction.Split(',');
                     
-                    instruction.StartPosition.Horizontal = int.Parse(values[0].Substring(values[0].Length - 1));
-                    instruction.StartPosition.Vertical = int.Parse(values[1]);
+                    instruction.StartPosition.Vertical = int.Parse(values[0].Substring(values[0].Length - 1));
+                    instruction.StartPosition.Horizontal = int.Parse(values[1]);
                     instruction.Direction = ParseDirection(values[2]);
                     
                     continue;
