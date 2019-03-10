@@ -6,10 +6,12 @@ namespace ProBot.Tests
     public class Tests
     {
         MovementService movementService;
+        InstructionService instructionService;
 
         public Tests()
         {
             movementService = new MovementService();
+            instructionService = new InstructionService();
         }
 
         [Theory]
@@ -19,7 +21,7 @@ namespace ProBot.Tests
         [InlineData("WEST", Direction.WEST)]
         public void AssertThatDirectionCanBeParsed(string input, Direction direction)
         {
-            var returnValue = Program.ParseDirection(input);
+            var returnValue = instructionService.ParseDirection(input);
 
             Assert.Equal(direction, returnValue);
         }
@@ -27,7 +29,7 @@ namespace ProBot.Tests
         [Fact]
         public void AssertThatFaultyDirectionIsSetToIllegal()
         {
-            var direction = Program.ParseDirection("NORTHWEST");
+            var direction = instructionService.ParseDirection("NORTHWEST");
 
             Assert.Equal(Direction.ILLEGAL, direction);
         }
@@ -64,7 +66,7 @@ namespace ProBot.Tests
                 StartPosition = new Position { Vertical = 0, Horizontal = 1 }
             };
 
-            var returnValue = Program.ParseRawInstructions(setup);
+            var returnValue = instructionService.ParseRawInstructions(setup);
 
             var areEqual = CompareInstructions(returnValue, correctlyParsedInstruction);
 
