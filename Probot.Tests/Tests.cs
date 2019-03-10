@@ -5,6 +5,13 @@ namespace ProBot.Tests
 {
     public class Tests
     {
+        MovementService movementService;
+
+        public Tests()
+        {
+            movementService = new MovementService();
+        }
+
         [Theory]
         [InlineData("NORTH", Direction.NORTH)]
         [InlineData("EAST", Direction.EAST)]
@@ -32,7 +39,7 @@ namespace ProBot.Tests
         [InlineData(-1, -1)]
         public void AssertThatIllegalMoveIsDetected(int vertical, int horizontal)
         {
-            var isIllegal = Program.CheckForIllegalMove(vertical, horizontal);
+            var isIllegal = movementService.CheckForIllegalMove(vertical, horizontal);
             Assert.True(isIllegal);
         }
 
@@ -41,7 +48,7 @@ namespace ProBot.Tests
         [InlineData(5, 5)]
         public void AssertThatLegalMoveIsApproved(int vertical, int horizontal)
         {
-            var isIllegal = Program.CheckForIllegalMove(vertical, horizontal);
+            var isIllegal = movementService.CheckForIllegalMove(vertical, horizontal);
             Assert.False(isIllegal);
         }
 
@@ -54,7 +61,7 @@ namespace ProBot.Tests
             {
                 Direction = Direction.EAST,
                 InstructionsList = new List<string>(),
-                StartPosition = new Position { Horizontal = 0, Vertical = 1 }
+                StartPosition = new Position { Vertical = 0, Horizontal = 1 }
             };
 
             var returnValue = Program.ParseRawInstructions(setup);
@@ -75,7 +82,7 @@ namespace ProBot.Tests
         [InlineData("RIGHT", Direction.WEST, Direction.NORTH)]
         public void AssertThatRobotCanTurn(string turn, Direction currentDirection, Direction newDirection)
         {
-            var returnValue = Program.Turn(turn, currentDirection);
+            var returnValue = movementService.Turn(turn, currentDirection);
 
             Assert.Equal(newDirection, returnValue);
         }
