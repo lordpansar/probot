@@ -7,23 +7,23 @@ namespace ProBot
     {
         public bool ExecuteInstructions(List<Instruction> instructions)
         {
-            bool isSuccess;
+            bool started;
 
             if (instructions.Count == 0)
             {
                 Message.NeverPlacedOnTable();
-                isSuccess = false;
+                started = false;
             }
             else
             {
                 Move(instructions);
-                isSuccess = true;
+                started = true;
             }
 
-            return isSuccess;
+            return started;
         }
 
-        public void Move(List<Instruction> instructions)
+        public string Move(List<Instruction> instructions)
         {
             var currentHorizontal = 0;
             var currentVertical = 0;
@@ -45,8 +45,7 @@ namespace ProBot
                     if (isIllegal)
                     {
                         isOnTable = false;
-                        Message.PlacedOutsideTable(currentHorizontal, currentVertical);
-                        return;
+                         Message.PlacedOutsideTable(currentHorizontal, currentVertical);
                     }
                     else
                     {
@@ -111,9 +110,11 @@ namespace ProBot
 
                 else if(isOnTable && instruction.Type == InstructionType.REPORT)
                 {
-                    Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
+                    return Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
                 }
             }
+
+            return string.Empty;
         }
 
         public bool CheckForIllegalMove(int horizontal, int vertical)

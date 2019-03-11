@@ -11,7 +11,7 @@ namespace ProBot
 
             var instructions = instructionService.GetInstructions();
 
-            movementService.ExecuteInstructions(instructions);
+            var report = movementService.ExecuteInstructions(instructions);
             Console.ReadLine();
         }
     }
