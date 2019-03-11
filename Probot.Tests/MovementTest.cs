@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Xunit;
 
 namespace ProBot.Tests
 {
-    public class Movement
+    public class MovementTest
     {
         MovementService movementService;
 
-        public Movement()
+        public MovementTest()
         {
             movementService = new MovementService();
         }
 
-        
-
         [Theory]
-        [InlineData(6, 6)]
-        [InlineData(-1, 5)]
+        [InlineData(5, 5)]
+        [InlineData(-1, 4)]
         [InlineData(2, -1)]
         [InlineData(-1, -1)]
         public void AssertThatIllegalMoveIsDetected(int vertical, int horizontal)
@@ -29,7 +24,9 @@ namespace ProBot.Tests
 
         [Theory]
         [InlineData(0, 0)]
-        [InlineData(5, 5)]
+        [InlineData(4, 4)]
+        [InlineData(0, 4)]
+        [InlineData(4, 0)]
         public void AssertThatLegalMoveIsApproved(int vertical, int horizontal)
         {
             var isIllegal = movementService.CheckForIllegalMove(vertical, horizontal);

@@ -3,11 +3,11 @@ using Xunit;
 
 namespace ProBot.Tests
 {
-    public class Instruction
+    public class InstructionTest
     {
         InstructionService instructionService;
 
-        public Instruction()
+        public InstructionTest()
         {
             instructionService = new InstructionService();
         }
@@ -36,11 +36,11 @@ namespace ProBot.Tests
         public void AssertThatRawInstructionsGetsParsed()
         {
             var setup = new List<string> { "PLACE 0,1,EAST", "MOVE", "REPORT" };
-            var instructionsList = new List<global::ProBot.Instruction>();
+            var instructionsList = new List<Instruction>();
 
-            var place = new global::ProBot.Instruction { Type = InstructionType.PLACE, Direction = Direction.EAST, Position = new Position { Vertical = 0, Horizontal = 1 } };
-            var move = new global::ProBot.Instruction { Type = InstructionType.MOVE, Direction = Direction.EAST, Position = new Position { Vertical = 0, Horizontal = 1 } };
-            var report = new global::ProBot.Instruction { Type = InstructionType.REPORT, Direction = Direction.EAST, Position = new Position { Vertical = 0, Horizontal = 1 } };
+            var place = new Instruction { Type = InstructionType.PLACE, Direction = Direction.EAST, StartPosition = new Position { Vertical = 0, Horizontal = 1 } };
+            var move = new Instruction { Type = InstructionType.MOVE, Direction = Direction.EAST, StartPosition = new Position { Vertical = 0, Horizontal = 1 } };
+            var report = new Instruction { Type = InstructionType.REPORT, Direction = Direction.EAST, StartPosition = new Position { Vertical = 0, Horizontal = 1 } };
 
             instructionsList.Add(place);
             instructionsList.Add(move);
@@ -53,7 +53,7 @@ namespace ProBot.Tests
             Assert.True(areEqual);
         }
 
-        private bool CompareInstructionLists(List<global::ProBot.Instruction> expected, List<global::ProBot.Instruction> actual)
+        private bool CompareInstructionLists(List<Instruction> expected, List<Instruction> actual)
         {
             if (expected.Count != actual.Count)
             {
@@ -70,7 +70,7 @@ namespace ProBot.Tests
                 {
                     return false;
                 }
-                if (expected[i].Position.Vertical != actual[i].Position.Vertical || expected[i].Position.Horizontal != actual[i].Position.Horizontal)
+                if (expected[i].StartPosition.Vertical != actual[i].StartPosition.Vertical || expected[i].StartPosition.Horizontal != actual[i].StartPosition.Horizontal)
                 {
                     return false;
                 }
