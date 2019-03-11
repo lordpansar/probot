@@ -12,12 +12,11 @@ namespace ProBot
         public static void PlacedOutsideTable(int horizontal, int vertical)
         {
             Console.WriteLine($"{horizontal},{vertical} is outside the table, all instructions until next placement has been ignored. ProBot does not approve of your shenanigans.\n\nPress enter to exit");
-            Console.ReadLine();
         }
 
         public static void NeverPlacedOnTable()
         {
-            Console.WriteLine($"You never place ProBot on the table. ProBot does not approve of your shenanigans.\n\nPress enter to exit");
+            Console.WriteLine($"You never placed ProBot on the table. ProBot does not approve of your shenanigans.\n\nPress enter to exit");
         }
 
         public static void IllegalDirection()
@@ -30,10 +29,12 @@ namespace ProBot
             throw new NotImplementedException();
         }
 
-        public static void PrintReport(int horizontal, int vertical, Direction direction)
+        public static string PrintReport(int horizontal, int vertical, Direction direction)
         {
-            Console.WriteLine($"REPORT\n{horizontal},{vertical}, {direction.ToString()}\n\nPress enter to exit");
-            Console.ReadLine();
+            string report = $"{horizontal},{vertical}, {direction.ToString()}";
+            Console.WriteLine($"REPORT\n{report}");
+
+            return report;
         }
     }
 }
