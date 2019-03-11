@@ -4,14 +4,14 @@ namespace ProBot
 {
     public static class Message
     {
-        public static void OutOfBounds(int vertical, int horizontal)
+        public static void OutOfBounds(int horizontal, int vertical)
         {
-            Console.WriteLine($"The instructed move to {vertical},{horizontal} is illegal and has been ignored. ProBot does not approve of your shenanigans.\n");
+            Console.WriteLine($"The instructed move to {horizontal},{vertical} is illegal and has been ignored. ProBot does not approve of your shenanigans.\n");
         }
 
-        public static void PlacedOutsideTable(int vertical, int horizontal)
+        public static void PlacedOutsideTable(int horizontal, int vertical)
         {
-            Console.WriteLine($"{vertical},{horizontal} is outside the table, all instructions has been ignored. ProBot does not approve of your shenanigans.\n\nPress enter to exit");
+            Console.WriteLine($"{horizontal},{vertical} is outside the table, all instructions has been ignored. ProBot does not approve of your shenanigans.\n\nPress enter to exit");
             Console.ReadLine();
         }
 
@@ -25,9 +25,9 @@ namespace ProBot
             throw new NotImplementedException();
         }
 
-        public static void PrintReport(int vertical, int horizontal, Direction direction)
+        public static void PrintReport(int horizontal, int vertical, Direction direction)
         {
-            Console.WriteLine($"REPORT\n{vertical},{horizontal}, {direction.ToString()}\n\nPress enter to exit");
+            Console.WriteLine($"REPORT\n{horizontal},{vertical}, {direction.ToString()}\n\nPress enter to exit");
             Console.ReadLine();
         }
     }

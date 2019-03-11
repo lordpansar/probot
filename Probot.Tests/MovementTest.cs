@@ -1,4 +1,4 @@
-﻿using Xunit;
+using Xunit;
 
 namespace ProBot.Tests
 {
@@ -16,9 +16,9 @@ namespace ProBot.Tests
         [InlineData(-1, 4)]
         [InlineData(2, -1)]
         [InlineData(-1, -1)]
-        public void AssertThatIllegalMoveIsDetected(int vertical, int horizontal)
+        public void AssertThatIllegalMoveIsDetected(int horizontal, int vertical)
         {
-            var isIllegal = movementService.CheckForIllegalMove(vertical, horizontal);
+            var isIllegal = movementService.CheckForIllegalMove(horizontal, vertical);
             Assert.True(isIllegal);
         }
 
@@ -27,9 +27,9 @@ namespace ProBot.Tests
         [InlineData(4, 4)]
         [InlineData(0, 4)]
         [InlineData(4, 0)]
-        public void AssertThatLegalMoveIsApproved(int vertical, int horizontal)
+        public void AssertThatLegalMoveIsApproved(int horizontal, int vertical)
         {
-            var isIllegal = movementService.CheckForIllegalMove(vertical, horizontal);
+            var isIllegal = movementService.CheckForIllegalMove(horizontal, vertical);
             Assert.False(isIllegal);
         }
 

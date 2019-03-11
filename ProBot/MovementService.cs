@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ProBot
 {
@@ -8,21 +8,21 @@ namespace ProBot
         {
             var startingPlacement = instructions[0];
 
-            var currentVertical = startingPlacement.StartPosition.Vertical;
             var currentHorizontal = startingPlacement.StartPosition.Horizontal;
+            var currentVertical = startingPlacement.StartPosition.Vertical;
             var currentDirection = startingPlacement.Direction;
 
-            int nextVertical = 0;
             int nextHorizontal = 0;
+            int nextVertical = 0;
 
             bool isIllegal;
 
             //Check if starting placement is outside the table
-            isIllegal = CheckForIllegalMove(currentVertical, currentHorizontal);
+            isIllegal = CheckForIllegalMove(currentHorizontal, currentVertical);
 
             if (isIllegal)
             {
-                Message.PlacedOutsideTable(currentVertical, currentHorizontal);
+                Message.PlacedOutsideTable(currentHorizontal, currentVertical);
                 return;
             }
 
@@ -32,31 +32,31 @@ namespace ProBot
                 {
                     if (currentDirection == Direction.NORTH)
                     {
-                        nextVertical = currentVertical + 1;
                         nextHorizontal = currentHorizontal;
+                        nextVertical = currentVertical + 1;
 
-                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);
+                        isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
                     }
                     else if (currentDirection == Direction.EAST)
                     {
-                        nextVertical = currentVertical;
                         nextHorizontal = currentHorizontal + 1;
+                        nextVertical = currentVertical;
 
-                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);
+                        isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
                     }
                     else if (currentDirection == Direction.SOUTH)
                     {
-                        nextVertical = currentVertical - 1;
                         nextHorizontal = currentHorizontal;
+                        nextVertical = currentVertical - 1;
 
-                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);
+                        isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
                     }
                     else if (currentDirection == Direction.WEST)
                     {
-                        nextVertical = currentVertical;
                         nextHorizontal = currentHorizontal - 1;
+                        nextVertical = currentVertical;
 
-                        isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);
+                        isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
                     }
 
                     else if (currentDirection == Direction.ILLEGAL)
@@ -67,21 +67,21 @@ namespace ProBot
 
                     if (isIllegal)
                     {
-                        Message.OutOfBounds(nextVertical, nextHorizontal);
+                        Message.OutOfBounds(nextHorizontal, nextVertical);
                         continue;
                     }
 
                     else if (!isIllegal)
                     {
-                        currentVertical = nextVertical;
                         currentHorizontal = nextHorizontal;
+                        currentVertical = nextVertical;
                         continue;
                     }
                 }
 
                 else if (instruction.Type == InstructionType.REPORT)
                 {
-                    Message.PrintReport(currentVertical, currentHorizontal, currentDirection);
+                    Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
                     continue;
                 }
 
@@ -93,7 +93,7 @@ namespace ProBot
             }
         }
 
-        public bool CheckForIllegalMove(int vertical, int horizontal)
+        public bool CheckForIllegalMove(int horizontal, int vertical)
         {
             if (horizontal > 4 || horizontal < 0 || vertical > 4 || vertical < 0)
             {
