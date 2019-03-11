@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.Collections.Generic;
+using Xunit;
 
 namespace ProBot.Tests
 {
@@ -57,6 +58,28 @@ namespace ProBot.Tests
             var returnValue = movementService.Turn(turn, currentDirection);
 
             Assert.Equal(newDirection, returnValue);
+        }
+
+        [Fact]
+        public void AssertThatEmptyInstructionsListIsNotRun()
+        {
+            var list = new List<Instruction>();
+
+            var isExecuted = movementService.ExecuteInstructions(list);
+
+            Assert.False(isExecuted);
+        }
+
+        [Fact]
+        public void AssertThatInstructionsListIsRun()
+        {
+            var list = new List<Instruction>();
+            var instruction = new Instruction { Type = InstructionType.PLACE, Direction = Direction.NORTH };
+            list.Add(instruction);
+
+            var isExecuted = movementService.ExecuteInstructions(list);
+
+            Assert.True(isExecuted);
         }
     }
 }
