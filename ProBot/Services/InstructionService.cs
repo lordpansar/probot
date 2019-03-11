@@ -6,21 +6,22 @@ namespace ProBot
 {
     public class InstructionService
     {
-        public Manifest GetManifest()
+        public List<Instruction> GetInstructions()
         {
             string path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\Instructions.txt"));
 
             var lineArray = File.ReadAllLines(path);
             var rawInstructions = new List<string>(lineArray);
 
-            var manifest = ParseRawInstructions(rawInstructions);
+            var instructions = ParseRawInstructions(rawInstructions);
 
-            return manifest;
+            return instructions;
         }
 
-        public Manifest ParseRawInstructions(List<string> rawInstructionsList)
+        public List<Instruction> ParseRawInstructions(List<string> rawInstructionsList)
         {
-            var manifest = new Manifest();
+            var parsedInstructions = new List<Instruction>();
+            bool instructionsListHasPlace = false;
 
             foreach (var rawInstruction in rawInstructionsList)
             {
@@ -31,35 +32,43 @@ namespace ProBot
                     var values = rawInstruction.Split(',');
 
                     instruction.Type = InstructionType.PLACE;
-                    
-                    manifest.StartPosition.Horizontal = int.Parse(values[1]);
-                    manifest.StartPosition.Vertical = int.Parse(values[0].Substring(values[0].Length - 1));
-                    manifest.StartDirection = ParseDirection(values[2]);
-                    manifest.Instructions.Add(instruction);
+                    //instruction.IsPlacement = true;
+
+                    instruction.Placement.Horizontal = int.Parse(values[1]);
+                    instruction.Placement.Vertical = int.Parse(values[0].Substring(values[0].Length - 1));
+                    instruction.Direction = ParseDirection(values[2]);
+
+                    parsedInstructions.Add(instruction);
+
+                    instructionsListHasPlace = true;
 
                     continue;
                 }
-                else if(rawInstruction == "MOVE")
+                else if(instructionsListHasPlace && rawInstruction == "MOVE")
                 {
                     instruction.Type = InstructionType.MOVE;
                 }
-                else if(rawInstruction == "LEFT")
+                else if(instructionsListHasPlace && rawInstruction == "LEFT")
                 {
                     instruction.Type = InstructionType.LEFT;
                 }
-                else if (rawInstruction == "RIGHT")
+                else if (instructionsListHasPlace && rawInstruction == "RIGHT")
                 {
                     instruction.Type = InstructionType.RIGHT;
                 }
-                else
+                else if (instructionsListHasPlace && rawInstruction == "REPORT")
                 {
                     instruction.Type = InstructionType.REPORT;
                 }
+                else
+                {
+                    continue;
+                }
 
-                manifest.Instructions.Add(instruction);
+                parsedInstructions.Add(instruction);
             }
 
-            return manifest;
+            return parsedInstructions;
         }
 
         public Direction ParseDirection(string input)

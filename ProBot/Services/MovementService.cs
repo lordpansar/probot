@@ -1,36 +1,63 @@
+﻿using System;
 using System.Collections.Generic;
 
 namespace ProBot
 {
     public class MovementService
     {
+        public bool ExecuteInstructions(List<Instruction> instructions)
+        {
+            bool isSuccess;
+
+            if (instructions.Count == 0)
+            {
+                Message.NeverPlacedOnTable();
+                isSuccess = false;
+            }
+            else
+            {
+                Move(instructions);
+                isSuccess = true;
+            }
+
+            return isSuccess;
+        }
+
         public void Move(List<Instruction> instructions)
         {
-            var startingPlacement = instructions[0];
-
-        public void Move(Manifest manifest)
-        {
-            var currentHorizontal = manifest.StartPosition.Horizontal;
-            var currentVertical = manifest.StartPosition.Vertical;
-            var currentDirection = manifest.StartDirection;
+            var currentHorizontal = 0;
+            var currentVertical = 0;
+            var currentDirection = new Direction();
 
             int nextHorizontal = 0;
             int nextVertical = 0;
 
-            bool isIllegal;
+            bool isIllegal = false;
+            bool isOnTable = false;
 
-            //Check if starting placement is outside the table
-            isIllegal = CheckForIllegalMove(currentHorizontal, currentVertical);
-
-            if (isIllegal)
+            foreach (var instruction in instructions)
             {
-                Message.PlacedOutsideTable(currentHorizontal, currentVertical);
-                return;
-            }
+                if(instruction.Type == InstructionType.PLACE)
+                {
+                    //Check if starting placement is outside the table
+                    isIllegal = CheckForIllegalMove(instruction.Placement.Horizontal, instruction.Placement.Vertical);
 
-            foreach (var instruction in manifest.Instructions)
-            {
-                if (instruction.Type == InstructionType.MOVE)
+                    if (isIllegal)
+                    {
+                        isOnTable = false;
+                        Message.PlacedOutsideTable(currentHorizontal, currentVertical);
+                        return;
+                    }
+                    else
+                    {
+                        isOnTable = true;
+                        currentHorizontal = instruction.Placement.Horizontal;
+                        currentVertical = instruction.Placement.Vertical;
+                        currentDirection = instruction.Direction;
+                    }
+                }
+
+                else if (isOnTable && instruction.Type == InstructionType.MOVE)
                 {
                     if (currentDirection == Direction.NORTH)
                     {
@@ -60,8 +87,7 @@ namespace ProBot
 
                         isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
                     }
-
-                    else if (currentDirection == Direction.ILLEGAL)
+                    else
                     {
                         Message.IllegalDirection();
                         continue;
@@ -70,27 +96,22 @@ namespace ProBot
                     if (isIllegal)
                     {
                         Message.OutOfBounds(nextHorizontal, nextVertical);
-                        continue;
                     }
-
-                    else if (!isIllegal)
+                    else
                     {
                         currentHorizontal = nextHorizontal;
                         currentVertical = nextVertical;
-                        continue;
                     }
                 }
 
-                else if (instruction.Type == InstructionType.REPORT)
-                {
-                    Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
-                    continue;
-                }
-
-                else if (instruction.Type == InstructionType.LEFT || instruction.Type == InstructionType.RIGHT)
+                else if (isOnTable && instruction.Type == InstructionType.LEFT || isOnTable && instruction.Type == InstructionType.RIGHT)
                 {
                     currentDirection = Turn(instruction.Type, currentDirection);
-                    continue;
+                }
+
+                else if(isOnTable && instruction.Type == InstructionType.REPORT)
+                {
+                    Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
                 }
             }
         }
