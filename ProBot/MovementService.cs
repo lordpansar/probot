@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace ProBot
 {
@@ -59,13 +59,19 @@ namespace ProBot
                         isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);
                     }
 
+                    else if (currentDirection == Direction.ILLEGAL)
+                    {
+                        Message.IllegalDirection();
+                        continue;
+                    }
+
                     if (isIllegal)
                     {
                         Message.OutOfBounds(nextVertical, nextHorizontal);
                         continue;
                     }
 
-                    if (!isIllegal)
+                    else if (!isIllegal)
                     {
                         currentVertical = nextVertical;
                         currentHorizontal = nextHorizontal;
@@ -91,7 +97,6 @@ namespace ProBot
         {
             if (horizontal > 5 || horizontal < 0 || vertical > 5 || vertical < 0)
             {
-                //Message.OutOfBounds(vertical, horizontal);
                 return true;
             }
             else
