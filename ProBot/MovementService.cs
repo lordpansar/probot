@@ -8,8 +8,8 @@ namespace ProBot
         {
             var startingPlacement = instructions[0];
 
-            var currentVertical = startingPlacement.Position.Vertical;
-            var currentHorizontal = startingPlacement.Position.Horizontal;
+            var currentVertical = startingPlacement.StartPosition.Vertical;
+            var currentHorizontal = startingPlacement.StartPosition.Horizontal;
             var currentDirection = startingPlacement.Direction;
 
             int nextVertical = 0;
