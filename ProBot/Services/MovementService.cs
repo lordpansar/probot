@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ProBot
 {
@@ -32,6 +32,7 @@ namespace ProBot
             int nextHorizontal = 0;
             int nextVertical = 0;
 
+            var numberOfReports = instructions.Where(x => x.Type == InstructionType.REPORT).Count();
             bool isIllegal = false;
             bool isOnTable = false;
 
@@ -53,6 +54,12 @@ namespace ProBot
                         currentHorizontal = instruction.LastPlacement.Horizontal;
                         currentVertical = instruction.LastPlacement.Vertical;
                         currentDirection = instruction.Direction;
+
+                        //If instructions list consists of only one place instruction
+                        if(instructions.Count == 1)
+                        {
+                            return Message.GetReport(currentHorizontal, currentVertical, currentDirection);
+                        }
                     }
                 }
 
@@ -110,7 +117,17 @@ namespace ProBot
 
                 else if(isOnTable && instruction.Type == InstructionType.REPORT)
                 {
-                    return Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
+                    //Check if instructions list contains more than 1 report
+                    if (numberOfReports > 1)
+                    {
+                        Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
+                        numberOfReports--;
+                    }
+                    else
+                    {
+                        Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
+                        return Message.GetReport(currentHorizontal, currentVertical, currentDirection);
+                    }
                 }
             }
 
