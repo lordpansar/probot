@@ -40,7 +40,7 @@ namespace ProBot
                 if(instruction.Type == InstructionType.PLACE)
                 {
                     //Check if starting placement is outside the table
-                    isIllegal = CheckForIllegalMove(instruction.Placement.Horizontal, instruction.Placement.Vertical);
+                    isIllegal = CheckForIllegalMove(instruction.LastPlacement.Horizontal, instruction.LastPlacement.Vertical);
 
                     if (isIllegal)
                     {
@@ -51,8 +51,8 @@ namespace ProBot
                     else
                     {
                         isOnTable = true;
-                        currentHorizontal = instruction.Placement.Horizontal;
-                        currentVertical = instruction.Placement.Vertical;
+                        currentHorizontal = instruction.LastPlacement.Horizontal;
+                        currentVertical = instruction.LastPlacement.Vertical;
                         currentDirection = instruction.Direction;
                     }
                 }

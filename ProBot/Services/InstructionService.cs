@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -32,10 +32,9 @@ namespace ProBot
                     var values = rawInstruction.Split(',');
 
                     instruction.Type = InstructionType.PLACE;
-                    //instruction.IsPlacement = true;
 
-                    instruction.Placement.Horizontal = int.Parse(values[1]);
-                    instruction.Placement.Vertical = int.Parse(values[0].Substring(values[0].Length - 1));
+                    instruction.LastPlacement.Horizontal = int.Parse(values[1]);
+                    instruction.LastPlacement.Vertical = int.Parse(values[0].Substring(values[0].Length - 1));
                     instruction.Direction = ParseDirection(values[2]);
 
                     parsedInstructions.Add(instruction);
