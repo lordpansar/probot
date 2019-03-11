@@ -26,6 +26,7 @@ namespace ProBot
             foreach (var rawInstruction in rawInstructionsList)
             {
                 var instruction = new Instruction();
+                var cleanedFromWhitespace = rawInstruction.Replace(" ", "");
 
                 //Check for whitespace or comments in instructions
                 if (string.IsNullOrWhiteSpace(rawInstruction) || rawInstruction.Substring(0, 2) == "//")
@@ -34,7 +35,6 @@ namespace ProBot
                 }
                 else if (rawInstruction.Contains("PLACE"))
                 {
-                    var cleanedFromWhitespace = rawInstruction.Replace(" ", "");
                     var values = cleanedFromWhitespace.Split(',');
 
                     instruction.Type = InstructionType.PLACE;
