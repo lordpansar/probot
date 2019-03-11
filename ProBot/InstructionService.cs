@@ -21,6 +21,9 @@ namespace ProBot
         public List<Instruction> ParseRawInstructions(List<string> rawInstructionsList)
         {
             var instructions = new List<Instruction>();
+            int startVertical = 0;
+            int startHorizontal = 0;
+            var direction = new Direction();
 
             foreach (var rawInstruction in rawInstructionsList)
             {
@@ -31,49 +34,42 @@ namespace ProBot
                     var values = rawInstruction.Split(',');
 
                     instruction.Type = InstructionType.PLACE;
-                    instruction.Position.Vertical = int.Parse(values[0].Substring(values[0].Length - 1));
-                    instruction.Position.Horizontal = int.Parse(values[1]);
+                    instruction.StartPosition.Vertical = int.Parse(values[0].Substring(values[0].Length - 1));
+                    instruction.StartPosition.Horizontal = int.Parse(values[1]);
                     instruction.Direction = ParseDirection(values[2]);
                     
                     instructions.Add(instruction);
+
+                    startVertical = instruction.StartPosition.Vertical;
+                    startHorizontal = instruction.StartPosition.Horizontal;
+                    direction = instruction.Direction;
+
                     continue;
                 }
                 else if(rawInstruction == "MOVE")
                 {
-                    instruction.Type = InstructionType.MOVE;
-                    instruction.Position.Vertical = instructions[0].Position.Vertical;
-                    instruction.Position.Horizontal = instructions[0].Position.Horizontal;
-                    instruction.Direction = instructions[0].Direction;
+                    instruction = AssembleInstruction(instruction, InstructionType.MOVE, startVertical, startHorizontal, direction);
 
                     instructions.Add(instruction);
                     continue;
                 }
                 else if(rawInstruction == "LEFT")
                 {
-                    instruction.Type = InstructionType.LEFT;
-                    instruction.Position.Vertical = instructions[0].Position.Vertical;
-                    instruction.Position.Horizontal = instructions[0].Position.Horizontal;
-                    instruction.Direction = instructions[0].Direction;
-                    
+                    instruction = AssembleInstruction(instruction, InstructionType.LEFT, startVertical, startHorizontal, direction);
+
                     instructions.Add(instruction);
                     continue;
                 }
                 else if (rawInstruction == "RIGHT")
                 {
-                    instruction.Type = InstructionType.RIGHT;
-                    instruction.Position.Vertical = instructions[0].Position.Vertical;
-                    instruction.Position.Horizontal = instructions[0].Position.Horizontal;
-                    instruction.Direction = instructions[0].Direction;
-                    
+                    instruction = AssembleInstruction(instruction, InstructionType.RIGHT, startVertical, startHorizontal, direction);
+
                     instructions.Add(instruction);
                     continue;
                 }
                 else if(rawInstruction == "REPORT")
                 {
-                    instruction.Type = InstructionType.REPORT;
-                    instruction.Position.Vertical = instructions[0].Position.Vertical;
-                    instruction.Position.Horizontal = instructions[0].Position.Horizontal;
-                    instruction.Direction = instructions[0].Direction;
+                    instruction = AssembleInstruction(instruction, InstructionType.REPORT, startVertical, startHorizontal, direction);
 
                     instructions.Add(instruction);
                     continue;
@@ -85,6 +81,16 @@ namespace ProBot
             }
 
             return instructions;
+        }
+
+        public Instruction AssembleInstruction(Instruction instruction, InstructionType type, int startVertical, int startHorizontal, Direction direction)
+        {
+            instruction.Type = type;
+            instruction.StartPosition.Vertical = startVertical;
+            instruction.StartPosition.Horizontal = startHorizontal;
+            instruction.Direction = direction;
+
+            return instruction;
         }
 
         public Direction ParseDirection(string input)
