@@ -38,11 +38,11 @@ namespace ProBot.Tests
             var setup = new List<string> { "PLACE 0,1,EAST", "MOVE", "LEFT", "RIGHT", "REPORT" };
             var instructionsList = new List<Instruction>();
 
-            var place = new Instruction { Type = InstructionType.PLACE, Direction = Direction.EAST, StartPosition = new Position { Horizontal = 1, Vertical = 0 } };
-            var move = new Instruction { Type = InstructionType.MOVE, Direction = Direction.EAST, StartPosition = new Position { Horizontal = 1, Vertical = 0 } };
-            var left = new Instruction { Type = InstructionType.LEFT, Direction = Direction.EAST, StartPosition = new Position { Horizontal = 1, Vertical = 0 } };
-            var right = new Instruction { Type = InstructionType.RIGHT, Direction = Direction.EAST, StartPosition = new Position { Horizontal = 1, Vertical = 0 } };
-            var report = new Instruction { Type = InstructionType.REPORT, Direction = Direction.EAST, StartPosition = new Position { Horizontal = 1, Vertical = 0 } };
+            var place = new Instruction { Type = InstructionType.PLACE };
+            var move = new Instruction { Type = InstructionType.MOVE };
+            var left = new Instruction { Type = InstructionType.LEFT };
+            var right = new Instruction { Type = InstructionType.RIGHT };
+            var report = new Instruction { Type = InstructionType.REPORT };
 
             instructionsList.Add(place);
             instructionsList.Add(move);
@@ -50,9 +50,9 @@ namespace ProBot.Tests
             instructionsList.Add(right);
             instructionsList.Add(report);
 
-            var returnValue = instructionService.ParseRawInstructions(setup);
+            var manifest = instructionService.ParseRawInstructions(setup);
 
-            var areEqual = CompareInstructionLists(returnValue, instructionsList);
+            var areEqual = CompareInstructionLists(manifest.Instructions, instructionsList);
 
             Assert.True(areEqual);
         }
@@ -66,15 +66,7 @@ namespace ProBot.Tests
             
             for (int i = 0; i < actual.Count; i++)
             {
-                if(expected[i].Direction != actual[i].Direction)
-                {
-                    return false;
-                }
-                if (expected[i].Type != actual[i].Type)
-                {
-                    return false;
-                }
-                if (expected[i].StartPosition.Horizontal != actual[i].StartPosition.Horizontal || expected[i].StartPosition.Vertical != actual[i].StartPosition.Vertical)
+                if(expected[i].Type != actual[i].Type)
                 {
                     return false;
                 }
