@@ -50,9 +50,9 @@ namespace ProBot.Tests
             instructionsList.Add(right);
             instructionsList.Add(report);
 
-            var manifest = instructionService.ParseRawInstructions(setup);
+            var returnValue = instructionService.ParseRawInstructions(setup);
 
-            var areEqual = CompareInstructionLists(manifest.Instructions, instructionsList);
+            var areEqual = CompareInstructionLists(returnValue, instructionsList);
 
             Assert.True(areEqual);
         }
