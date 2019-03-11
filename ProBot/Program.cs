@@ -1,3 +1,5 @@
+using System;
+
 namespace ProBot
 {
     public class Program
@@ -7,9 +9,10 @@ namespace ProBot
             var movementService = new MovementService();
             var instructionService = new InstructionService();
 
-            var manifest = instructionService.GetManifest();
+            var instructions = instructionService.GetInstructions();
 
-            movementService.Move(manifest);
+            movementService.ExecuteInstructions(instructions);
+            Console.ReadLine();
         }
     }
 }
