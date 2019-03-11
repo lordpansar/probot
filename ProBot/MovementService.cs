@@ -32,7 +32,7 @@ namespace ProBot
                 {
                     if (currentDirection == Direction.NORTH)
                     {
-                        nextVertical = currentVertical - 1;
+                        nextVertical = currentVertical + 1;
                         nextHorizontal = currentHorizontal;
 
                         isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);
