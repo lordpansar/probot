@@ -3,12 +3,12 @@ using Xunit;
 
 namespace ProBot.Tests
 {
-    public class FullCase
+    public class UseCase
     {
         InstructionService instructionService;
         MovementService movementService;
 
-        public FullCase()
+        public UseCase()
         {
             instructionService = new InstructionService();
             movementService = new MovementService();
