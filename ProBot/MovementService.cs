@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ProBot
 {
@@ -111,40 +111,45 @@ namespace ProBot
 
             if (turn == InstructionType.LEFT)
             {
-                if (currentDirection == Direction.NORTH)
+                switch(currentDirection)
                 {
-                    newDirection = Direction.WEST;
-                }
-                if (currentDirection == Direction.EAST)
-                {
-                    newDirection = Direction.NORTH;
-                }
-                if (currentDirection == Direction.SOUTH)
-                {
-                    newDirection = Direction.EAST;
-                }
-                if (currentDirection == Direction.WEST)
-                {
-                    newDirection = Direction.SOUTH;
+                    case Direction.NORTH:
+                        newDirection = Direction.WEST;
+                        break;
+                    case Direction.EAST:
+                        newDirection = Direction.NORTH;
+                        break;
+                    case Direction.SOUTH:
+                        newDirection = Direction.EAST;
+                        break;
+                    case Direction.WEST:
+                        newDirection = Direction.SOUTH;
+                        break;
+                    default:
+                        newDirection = Direction.ILLEGAL;
+                        break;
                 }
             }
             else
             {
-                if (currentDirection == Direction.NORTH)
+
+                switch (currentDirection)
                 {
-                    newDirection = Direction.EAST;
-                }
-                if (currentDirection == Direction.EAST)
-                {
-                    newDirection = Direction.SOUTH;
-                }
-                if (currentDirection == Direction.SOUTH)
-                {
-                    newDirection = Direction.WEST;
-                }
-                if (currentDirection == Direction.WEST)
-                {
-                    newDirection = Direction.NORTH;
+                    case Direction.NORTH:
+                        newDirection = Direction.EAST;
+                        break;
+                    case Direction.EAST:
+                        newDirection = Direction.SOUTH;
+                        break;
+                    case Direction.SOUTH:
+                        newDirection = Direction.WEST;
+                        break;
+                    case Direction.WEST:
+                        newDirection = Direction.NORTH;
+                        break;
+                    default:
+                        newDirection = Direction.ILLEGAL;
+                        break;
                 }
             }
 
