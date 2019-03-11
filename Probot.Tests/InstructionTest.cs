@@ -57,6 +57,36 @@ namespace ProBot.Tests
             Assert.True(areEqual);
         }
 
+        [Fact]
+        public void AssertThatWhiteSpaceInInputGetsParsedCorrectly()
+        {
+            var setup = new List<string> { "", "\t", "\n", " " };
+
+            var returnValue = instructionService.ParseRawInstructions(setup);
+
+            Assert.Empty(returnValue);
+        }
+
+        [Fact]
+        public void AssertThatCommentsInInputGetsParsedCorrectly()
+        {
+            var setup = new List<string> { "//Test", "//This is a test", "//This is SERIOUSLY a test" };
+
+            var returnValue = instructionService.ParseRawInstructions(setup);
+
+            Assert.Empty(returnValue);
+        }
+
+        [Fact]
+        public void AssertThatInvalidInputIsParsedCorrectly()
+        {
+            var setup = new List<string> { "All your base are belong to us", "PLAKE", "RIGHTEOUS" };
+
+            var returnValue = instructionService.ParseRawInstructions(setup);
+
+            Assert.Empty(returnValue);
+        }
+
         private bool CompareInstructionLists(List<Instruction> expected, List<Instruction> actual)
         {
             if (expected.Count != actual.Count)
