@@ -15,6 +15,11 @@ namespace ProBot
             Console.ReadLine();
         }
 
+        public static void IllegalDirection()
+        {
+            Console.WriteLine($"Illegal direction is against the law! ProBot does not approve of your shenanigans.\n\nPress enter to exit");
+        }
+
         public static void PrintMove()
         {
             throw new NotImplementedException();
