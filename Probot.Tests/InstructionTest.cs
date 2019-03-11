@@ -35,15 +35,19 @@ namespace ProBot.Tests
         [Fact]
         public void AssertThatRawInstructionsGetsParsed()
         {
-            var setup = new List<string> { "PLACE 0,1,EAST", "MOVE", "REPORT" };
+            var setup = new List<string> { "PLACE 0,1,EAST", "MOVE", "LEFT", "RIGHT", "REPORT" };
             var instructionsList = new List<Instruction>();
 
             var place = new Instruction { Type = InstructionType.PLACE, Direction = Direction.EAST, StartPosition = new Position { Horizontal = 1, Vertical = 0 } };
             var move = new Instruction { Type = InstructionType.MOVE, Direction = Direction.EAST, StartPosition = new Position { Horizontal = 1, Vertical = 0 } };
+            var left = new Instruction { Type = InstructionType.LEFT, Direction = Direction.EAST, StartPosition = new Position { Horizontal = 1, Vertical = 0 } };
+            var right = new Instruction { Type = InstructionType.RIGHT, Direction = Direction.EAST, StartPosition = new Position { Horizontal = 1, Vertical = 0 } };
             var report = new Instruction { Type = InstructionType.REPORT, Direction = Direction.EAST, StartPosition = new Position { Horizontal = 1, Vertical = 0 } };
 
             instructionsList.Add(place);
             instructionsList.Add(move);
+            instructionsList.Add(left);
+            instructionsList.Add(right);
             instructionsList.Add(report);
 
             var returnValue = instructionService.ParseRawInstructions(setup);
