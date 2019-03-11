@@ -33,7 +33,7 @@ namespace ProBot
                 {
                     continue;
                 }
-                else if (rawInstruction.Contains("PLACE"))
+                else if (rawInstruction.ToLower().Contains("place"))
                 {
                     var values = cleanedFromWhitespace.Split(',');
 
@@ -49,19 +49,19 @@ namespace ProBot
 
                     continue;
                 }
-                else if(instructionsListHasPlace && rawInstruction == "MOVE")
+                else if(instructionsListHasPlace && rawInstruction.ToLower() == "move")
                 {
                     instruction.Type = InstructionType.MOVE;
                 }
-                else if(instructionsListHasPlace && rawInstruction == "LEFT")
+                else if(instructionsListHasPlace && rawInstruction.ToLower() == "left")
                 {
                     instruction.Type = InstructionType.LEFT;
                 }
-                else if (instructionsListHasPlace && rawInstruction == "RIGHT")
+                else if (instructionsListHasPlace && rawInstruction.ToLower() == "right")
                 {
                     instruction.Type = InstructionType.RIGHT;
                 }
-                else if (instructionsListHasPlace && rawInstruction == "REPORT")
+                else if (instructionsListHasPlace && rawInstruction.ToLower() == "report")
                 {
                     instruction.Type = InstructionType.REPORT;
                 }
