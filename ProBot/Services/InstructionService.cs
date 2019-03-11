@@ -34,7 +34,8 @@ namespace ProBot
                 }
                 else if (rawInstruction.Contains("PLACE"))
                 {
-                    var values = rawInstruction.Split(',');
+                    var cleanedFromWhitespace = rawInstruction.Replace(" ", "");
+                    var values = cleanedFromWhitespace.Split(',');
 
                     instruction.Type = InstructionType.PLACE;
 
