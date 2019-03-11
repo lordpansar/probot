@@ -7,9 +7,9 @@ namespace ProBot
             var movementService = new MovementService();
             var instructionService = new InstructionService();
 
-            var instruction = instructionService.GetInstructions();
+            var manifest = instructionService.GetManifest();
 
-            movementService.Move(instruction);
+            movementService.Move(manifest);
         }
     }
 }

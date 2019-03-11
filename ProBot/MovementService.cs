@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace ProBot
 {
@@ -8,9 +8,11 @@ namespace ProBot
         {
             var startingPlacement = instructions[0];
 
-            var currentHorizontal = startingPlacement.StartPosition.Horizontal;
-            var currentVertical = startingPlacement.StartPosition.Vertical;
-            var currentDirection = startingPlacement.Direction;
+        public void Move(Manifest manifest)
+        {
+            var currentHorizontal = manifest.StartPosition.Horizontal;
+            var currentVertical = manifest.StartPosition.Vertical;
+            var currentDirection = manifest.StartDirection;
 
             int nextHorizontal = 0;
             int nextVertical = 0;
@@ -26,7 +28,7 @@ namespace ProBot
                 return;
             }
 
-            foreach (var instruction in instructions)
+            foreach (var instruction in manifest.Instructions)
             {
                 if (instruction.Type == InstructionType.MOVE)
                 {
