@@ -48,5 +48,15 @@ namespace ProBot.Tests
 
             Assert.Equal(newDirection, returnValue);
         }
+
+        [Theory]
+        [InlineData(InstructionType.LEFT, Direction.ILLEGAL, Direction.ILLEGAL)]
+        [InlineData(InstructionType.RIGHT, Direction.ILLEGAL, Direction.ILLEGAL)]
+        public void AssertThatRobotCanNotTurnIllegaly(InstructionType turn, Direction currentDirection, Direction newDirection)
+        {
+            var returnValue = movementService.Turn(turn, currentDirection);
+
+            Assert.Equal(newDirection, returnValue);
+        }
     }
 }
