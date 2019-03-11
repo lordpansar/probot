@@ -46,7 +46,7 @@ namespace ProBot
                     }
                     else if (currentDirection == Direction.SOUTH)
                     {
-                        nextVertical = currentVertical + 1;
+                        nextVertical = currentVertical - 1;
                         nextHorizontal = currentHorizontal;
 
                         isIllegal = CheckForIllegalMove(nextVertical, nextHorizontal);
@@ -79,13 +79,13 @@ namespace ProBot
                     }
                 }
 
-                if (instruction.Type == InstructionType.REPORT)
+                else if (instruction.Type == InstructionType.REPORT)
                 {
                     Message.PrintReport(currentVertical, currentHorizontal, currentDirection);
                     continue;
                 }
 
-                if (instruction.Type == InstructionType.LEFT || instruction.Type == InstructionType.RIGHT)
+                else if (instruction.Type == InstructionType.LEFT || instruction.Type == InstructionType.RIGHT)
                 {
                     currentDirection = Turn(instruction.Type, currentDirection);
                     continue;
