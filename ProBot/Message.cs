@@ -11,7 +11,7 @@ namespace ProBot
 
         public static void PlacedOutsideTable(int horizontal, int vertical)
         {
-            Console.WriteLine($"{horizontal},{vertical} is outside the table, all instructions has been ignored. ProBot does not approve of your shenanigans.\n\nPress enter to exit");
+            Console.WriteLine($"{horizontal},{vertical} is outside the table, all instructions until next placement has been ignored. ProBot does not approve of your shenanigans.\n\nPress enter to exit");
             Console.ReadLine();
         }
 
