@@ -27,7 +27,12 @@ namespace ProBot
             {
                 var instruction = new Instruction();
 
-                if (rawInstruction.Contains("PLACE"))
+                //Check for whitespace or comments in instructions
+                if (string.IsNullOrWhiteSpace(rawInstruction) || rawInstruction.Substring(0, 2) == "//")
+                {
+                    continue;
+                }
+                else if (rawInstruction.Contains("PLACE"))
                 {
                     var values = rawInstruction.Split(',');
 
