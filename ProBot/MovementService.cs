@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace ProBot
 {
@@ -95,7 +95,7 @@ namespace ProBot
 
         public bool CheckForIllegalMove(int vertical, int horizontal)
         {
-            if (horizontal > 5 || horizontal < 0 || vertical > 5 || vertical < 0)
+            if (horizontal > 4 || horizontal < 0 || vertical > 4 || vertical < 0)
             {
                 return true;
             }
@@ -132,7 +132,6 @@ namespace ProBot
             }
             else
             {
-
                 switch (currentDirection)
                 {
                     case Direction.NORTH:
