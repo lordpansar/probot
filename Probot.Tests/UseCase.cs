@@ -29,13 +29,13 @@ namespace ProBot.Tests
         [Fact]
         public void AssertThatProBotCanNotWalkOffTable()
         {
-            var rawInstructions = new List<string> { "PLACE 0,0,WEST", "MOVE", "RIGHT", "MOVE", "MOVE", "REPORT" };
+            var rawInstructions = new List<string> { "PLACE 0,2,WEST", "MOVE", "LEFT", "MOVE", "MOVE", "REPORT" };
 
             var parsedInstructions = instructionService.ParseRawInstructions(rawInstructions);
 
             var report = movementService.Move(parsedInstructions);
 
-            Assert.Equal("0,2, NORTH", report);
+            Assert.Equal("0,0, SOUTH", report);
         }
 
         [Fact]
