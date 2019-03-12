@@ -81,5 +81,22 @@ namespace ProBot.Tests
 
             Assert.True(isExecuted);
         }
+
+        [Theory]
+        [InlineData(0, 4)]
+        [InlineData(1, 3)]
+        [InlineData(2, 2)]
+        [InlineData(3, 1)]
+        [InlineData(4, 0)]
+        public void AssertThatPositionsAreParsedCorrectly(int vertical, int expected)
+        {
+            var positions = new List<Position>();
+            var position = new Position { Horizontal = 0, Vertical = vertical };
+            positions.Add(position);
+
+            var parsedPositions = movementService.TranslateVerticalCoordinates(positions);
+
+            Assert.Equal(expected, parsedPositions[0].Vertical);
+        }
     }
 }
