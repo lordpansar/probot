@@ -24,11 +24,6 @@ namespace ProBot
             Console.WriteLine($"Illegal direction is against the law! ProBot does not approve of your shenanigans.");
         }
 
-        public static void PrintMove()
-        {
-            throw new NotImplementedException();
-        }
-
         public static string GetReport(int horizontal, int vertical, Direction direction)
         {
             string report = $"{horizontal},{vertical}, {direction.ToString()}";
