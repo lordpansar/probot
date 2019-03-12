@@ -41,6 +41,7 @@ namespace ProBot
         {
             var table = new char[5, 5];
 
+            //Generate table
             for (int row = 0; row < 5; row++)
             {
                 for (int column = 0; column < 5; column++)
@@ -49,11 +50,24 @@ namespace ProBot
                 }
             }
 
-            foreach (var position in positions)
+            //Place tiles where ProBot has been placed, moved or finished the last instruction
+            for (int position = 0; position < positions.Count; position++)
             {
-                table[position.Vertical, position.Horizontal] = 'o';
+                if(position == 0)
+                {   //S = Start
+                    table[positions[position].Vertical, positions[position].Horizontal] = 's';
+                }
+                else if (position == positions.Count -1)
+                {   //F = Finish
+                    table[positions[position].Vertical, positions[position].Horizontal] = 'f';
+                }
+                else
+                {   //O = Not x
+                    table[positions[position].Vertical, positions[position].Horizontal] = 'o';
+                }
             }
 
+            //Color & print tiles
             for (int row = 0; row < 5; row++)
             {
                 for (int column = 0; column < 5; column++)
@@ -62,9 +76,21 @@ namespace ProBot
                     {
                         Console.Write(table[row, column]);
                     }
-                    else
+                    else if(table[row, column] == 'o')
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(table[row, column]);
+                        Console.ResetColor();
+                    }
+                    else if (table[row, column] == 's')
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write(table[row, column]);
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.Write(table[row, column]);
                         Console.ResetColor();
                     }
