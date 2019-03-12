@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ProBot
 {
@@ -33,7 +34,43 @@ namespace ProBot
         public static void PrintReport(int horizontal, int vertical, Direction direction)
         {
             string report = $"{horizontal},{vertical}, {direction.ToString()}";
-            Console.WriteLine($"REPORT\n{report}");
+            Console.WriteLine($"\nREPORT\n{report}");
+        }
+
+        public static void PrintPath(List<Position> positions)
+        {
+            var table = new char[5, 5];
+
+            for (int row = 0; row < 5; row++)
+            {
+                for (int column = 0; column < 5; column++)
+                {
+                    table[row, column] = 'x';
+                }
+            }
+
+            foreach (var position in positions)
+            {
+                table[position.Vertical, position.Horizontal] = 'o';
+            }
+
+            for (int row = 0; row < 5; row++)
+            {
+                for (int column = 0; column < 5; column++)
+                {
+                    if (table[row, column] == 'x')
+                    {
+                        Console.Write(table[row, column]);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(table[row, column]);
+                        Console.ResetColor();
+                    }
+                }
+                Console.Write("\n");
+            }
         }
     }
 }

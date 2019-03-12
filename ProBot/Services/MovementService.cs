@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ProBot
@@ -36,6 +37,8 @@ namespace ProBot
             bool isIllegal = false;
             bool isOnTable = false;
 
+            var positions = new List<Position>();
+
             foreach (var instruction in instructions)
             {
                 if(instruction.Type == InstructionType.PLACE)
@@ -55,8 +58,11 @@ namespace ProBot
                         currentVertical = instruction.LastPlacement.Vertical;
                         currentDirection = instruction.Direction;
 
+                        var pos = new Position { Horizontal = currentHorizontal, Vertical = currentVertical };
+                        positions.Add(pos);
+
                         //If instructions list consists of only one place instruction
-                        if(instructions.Count == 1)
+                        if (instructions.Count == 1)
                         {
                             return Message.GetReport(currentHorizontal, currentVertical, currentDirection);
                         }
@@ -107,6 +113,9 @@ namespace ProBot
                     {
                         currentHorizontal = nextHorizontal;
                         currentVertical = nextVertical;
+
+                        var pos = new Position { Horizontal = currentHorizontal, Vertical = currentVertical };
+                        positions.Add(pos);
                     }
                 }
 
@@ -125,6 +134,9 @@ namespace ProBot
                     }
                     else
                     {
+                        var translatedPositions = TranslateVerticalCoordinates(positions);
+
+                        Message.PrintPath(translatedPositions);
                         Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
                         return Message.GetReport(currentHorizontal, currentVertical, currentDirection);
                     }
@@ -194,6 +206,39 @@ namespace ProBot
             }
 
             return newDirection;
+        }
+
+        public List<Position> TranslateVerticalCoordinates(List<Position> positions)
+        { 
+            var translatedPositions = new List<Position>();
+
+            foreach (var position in positions)
+            {
+                if (position.Vertical == 0)
+                {
+                    position.Vertical = 4;
+                }
+                else if (position.Vertical == 1)
+                {
+                    position.Vertical = 3;
+                }
+                else if (position.Vertical == 2)
+                {
+                    position.Vertical = 2;
+                }
+                else if (position.Vertical == 3)
+                {
+                    position.Vertical = 1;
+                }
+                else if (position.Vertical == 4)
+                {
+                    position.Vertical = 0;
+                }
+
+                translatedPositions.Add(position);
+            }
+
+            return translatedPositions;
         }
     }
 }
