@@ -134,7 +134,7 @@ namespace ProBot
                     }
                     else
                     {
-                        var translatedPositions = TranslateVerticalCoordinates(positions);
+                        var translatedPositions = parseVerticalCoordinates(positions);
 
                         Message.PrintPath(translatedPositions);
                         Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
@@ -208,9 +208,9 @@ namespace ProBot
             return newDirection;
         }
 
-        public List<Position> TranslateVerticalCoordinates(List<Position> positions)
+        public List<Position> parseVerticalCoordinates(List<Position> positions)
         { 
-            var translatedPositions = new List<Position>();
+            var parsedPositions = new List<Position>();
 
             foreach (var position in positions)
             {
@@ -235,10 +235,10 @@ namespace ProBot
                     position.Vertical = 0;
                 }
 
-                translatedPositions.Add(position);
+                parsedPositions.Add(position);
             }
 
-            return translatedPositions;
+            return parsedPositions;
         }
     }
 }

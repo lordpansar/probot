@@ -94,7 +94,7 @@ namespace ProBot.Tests
             var position = new Position { Horizontal = 0, Vertical = vertical };
             positions.Add(position);
 
-            var parsedPositions = movementService.TranslateVerticalCoordinates(positions);
+            var parsedPositions = movementService.parseVerticalCoordinates(positions);
 
             Assert.Equal(expected, parsedPositions[0].Vertical);
         }
