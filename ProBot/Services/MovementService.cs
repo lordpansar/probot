@@ -7,20 +7,20 @@ namespace ProBot
     {
         public bool ExecuteInstructions(List<Instruction> instructions)
         {
-            bool started;
+            bool executed;
 
             if (instructions.Count == 0)
             {
                 Message.NeverPlacedOnTable();
-                started = false;
+                executed = false;
             }
             else
             {
                 Move(instructions);
-                started = true;
+                executed = true;
             }
 
-            return started;
+            return executed;
         }
 
         public string Move(List<Instruction> instructions)
@@ -133,7 +133,7 @@ namespace ProBot
                     }
                     else
                     {
-                        var translatedPositions = parseVerticalCoordinates(positions);
+                        var translatedPositions = ParseVerticalCoordinates(positions);
 
                         Message.PrintPath(translatedPositions);
                         Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
@@ -207,7 +207,7 @@ namespace ProBot
             return newDirection;
         }
 
-        public List<Position> parseVerticalCoordinates(List<Position> positions)
+        public List<Position> ParseVerticalCoordinates(List<Position> positions)
         { 
             var parsedPositions = new List<Position>();
 
