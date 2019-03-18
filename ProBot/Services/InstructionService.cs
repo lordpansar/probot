@@ -80,18 +80,18 @@ namespace ProBot
         {
             Direction direction = new Direction();
 
-            switch (input)
+            switch (input.ToLower())
             {
-                case "NORTH":
+                case "north":
                     direction = Direction.NORTH;
                     break;
-                case "EAST":
+                case "east":
                     direction = Direction.EAST;
                     break;
-                case "SOUTH":
+                case "south":
                     direction = Direction.SOUTH;
                     break;
-                case "WEST":
+                case "west":
                     direction = Direction.WEST;
                     break;
                 default:
