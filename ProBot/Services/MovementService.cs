@@ -29,12 +29,12 @@ namespace ProBot
             var currentVertical = 0;
             var currentDirection = new Direction();
 
-            int nextHorizontal = 0;
-            int nextVertical = 0;
+            var nextHorizontal = 0;
+            var nextVertical = 0;
 
             var numberOfReports = instructions.Where(x => x.Type == InstructionType.REPORT).Count();
-            bool isIllegal = false;
-            bool isOnTable = false;
+            var isIllegal = false;
+            var isOnTable = false;
 
             var positions = new List<Position>();
 
