@@ -48,7 +48,7 @@ namespace ProBot
                     if (isIllegal)
                     {
                         isOnTable = false;
-                        Message.PlacedOutsideTable(currentHorizontal, currentVertical);
+                        Message.PlacedOutsideTable(instruction.LastPlacement.Horizontal, instruction.LastPlacement.Vertical);
                     }
                     else
                     {
