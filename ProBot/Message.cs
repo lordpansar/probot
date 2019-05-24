@@ -39,16 +39,8 @@ namespace ProBot
 
         public static void PrintPath(List<Position> positions)
         {
-            var table = new char[5, 5];
-
             //Generate table
-            for (int row = 0; row < 5; row++)
-            {
-                for (int column = 0; column < 5; column++)
-                {
-                    table[row, column] = 'x';
-                }
-            }
+            var table = GenerateTable();
 
             //Place tiles where ProBot has been placed, moved or finished the last instruction
             for (int position = 0; position < positions.Count; position++)
@@ -97,6 +89,22 @@ namespace ProBot
                 }
                 Console.Write("\n");
             }
+        }
+
+        private static char[,] GenerateTable()
+        {
+            var table = new char[5, 5];
+
+            //Generate table
+            for (int row = 0; row < 5; row++)
+            {
+                for (int column = 0; column < 5; column++)
+                {
+                    table[row, column] = 'x';
+                }
+            }
+
+            return table;
         }
     }
 }
