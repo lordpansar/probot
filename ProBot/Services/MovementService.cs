@@ -36,7 +36,7 @@ namespace ProBot
             var isIllegal = false;
             var isOnTable = false;
 
-            var positions = new List<Position>();
+            var positionLog = new List<Position>();
 
             foreach (var instruction in instructions)
             {
@@ -58,7 +58,7 @@ namespace ProBot
                         currentDirection = instruction.Direction;
 
                         var pos = new Position { Horizontal = currentHorizontal, Vertical = currentVertical };
-                        positions.Add(pos);
+                        positionLog.Add(pos);
 
                         //If instructions list consists of only one place instruction
                         if (instructions.Count == 1)
@@ -114,7 +114,7 @@ namespace ProBot
                         currentVertical = nextVertical;
 
                         var pos = new Position { Horizontal = currentHorizontal, Vertical = currentVertical };
-                        positions.Add(pos);
+                        positionLog.Add(pos);
                     }
                 }
 
@@ -133,7 +133,7 @@ namespace ProBot
                     }
                     else
                     {
-                        var translatedPositions = ParseVerticalCoordinates(positions);
+                        var translatedPositions = ParseVerticalCoordinates(positionLog);
 
                         Message.PrintPath(translatedPositions);
                         Message.PrintReport(currentHorizontal, currentVertical, currentDirection);
