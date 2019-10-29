@@ -21,7 +21,7 @@ namespace ProBot.Tests
 
             var parsedInstructions = instructionService.ParseRawInstructions(rawInstructions);
 
-            var report = movementService.Move(parsedInstructions);
+            var report = movementService.ExecuteRoute(parsedInstructions);
 
             Assert.Equal("1,1, EAST", report);
         }
@@ -33,7 +33,7 @@ namespace ProBot.Tests
 
             var parsedInstructions = instructionService.ParseRawInstructions(rawInstructions);
 
-            var report = movementService.Move(parsedInstructions);
+            var report = movementService.ExecuteRoute(parsedInstructions);
 
             Assert.Equal("0,0, SOUTH", report);
         }
@@ -45,7 +45,7 @@ namespace ProBot.Tests
 
             var parsedInstructions = instructionService.ParseRawInstructions(rawInstructions);
 
-            var report = movementService.Move(parsedInstructions);
+            var report = movementService.ExecuteRoute(parsedInstructions);
 
             Assert.Equal("", report);
         }
@@ -57,7 +57,7 @@ namespace ProBot.Tests
 
             var parsedInstructions = instructionService.ParseRawInstructions(rawInstructions);
 
-            var report = movementService.Move(parsedInstructions);
+            var report = movementService.ExecuteRoute(parsedInstructions);
 
             Assert.Equal("", report);
         }
@@ -69,7 +69,7 @@ namespace ProBot.Tests
 
             var parsedInstructions = instructionService.ParseRawInstructions(rawInstructions);
 
-            var report = movementService.Move(parsedInstructions);
+            var report = movementService.ExecuteRoute(parsedInstructions);
 
             Assert.Equal("", report);
         }
@@ -81,7 +81,7 @@ namespace ProBot.Tests
 
             var parsedInstructions = instructionService.ParseRawInstructions(rawInstructions);
 
-            var report = movementService.Move(parsedInstructions);
+            var report = movementService.ExecuteRoute(parsedInstructions);
 
             Assert.Equal("0,1, EAST", report);
         }
@@ -93,7 +93,7 @@ namespace ProBot.Tests
 
             var parsedInstructions = instructionService.ParseRawInstructions(rawInstructions);
 
-            var report = movementService.Move(parsedInstructions);
+            var report = movementService.ExecuteRoute(parsedInstructions);
 
             Assert.Equal("0,0, NORTH", report);
         }
@@ -105,7 +105,7 @@ namespace ProBot.Tests
 
             var parsedInstructions = instructionService.ParseRawInstructions(rawInstructions);
 
-            var report = movementService.Move(parsedInstructions);
+            var report = movementService.ExecuteRoute(parsedInstructions);
 
             Assert.Equal("", report);
         }
@@ -117,7 +117,7 @@ namespace ProBot.Tests
 
             var parsedInstructions = instructionService.ParseRawInstructions(rawInstructions);
 
-            var report = movementService.Move(parsedInstructions);
+            var report = movementService.ExecuteRoute(parsedInstructions);
 
             Assert.Equal("", report);
         }
@@ -129,7 +129,7 @@ namespace ProBot.Tests
 
             var parsedInstructions = instructionService.ParseRawInstructions(rawInstructions);
 
-            var report = movementService.Move(parsedInstructions);
+            var report = movementService.ExecuteRoute(parsedInstructions);
 
             Assert.Equal("1,1, EAST", report);
         }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ProBot
@@ -16,14 +16,14 @@ namespace ProBot
             }
             else
             {
-                Move(instructions);
+                ExecuteRoute(instructions);
                 executed = true;
             }
 
             return executed;
         }
 
-        public string Move(List<Instruction> instructions)
+        public string ExecuteRoute(List<Instruction> instructions)
         {
             var currentHorizontal = 0;
             var currentVertical = 0;
