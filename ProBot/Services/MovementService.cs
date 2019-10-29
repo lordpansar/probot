@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace ProBot
@@ -70,48 +70,16 @@ namespace ProBot
 
                 else if (isOnTable && instruction.Type == InstructionType.MOVE)
                 {
-                    if (currentDirection == Direction.NORTH)
-                    {
-                        nextHorizontal = currentHorizontal;
-                        nextVertical = currentVertical + 1;
+                    var moveReturnValues = Move(currentDirection, currentHorizontal, currentVertical);
 
-                        isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
-                    }
-                    else if (currentDirection == Direction.EAST)
+                    if (moveReturnValues.isIllegal)
                     {
-                        nextHorizontal = currentHorizontal + 1;
-                        nextVertical = currentVertical;
-
-                        isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
-                    }
-                    else if (currentDirection == Direction.SOUTH)
-                    {
-                        nextHorizontal = currentHorizontal;
-                        nextVertical = currentVertical - 1;
-
-                        isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
-                    }
-                    else if (currentDirection == Direction.WEST)
-                    {
-                        nextHorizontal = currentHorizontal - 1;
-                        nextVertical = currentVertical;
-
-                        isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
+                        Message.OutOfBounds(moveReturnValues.nextHorizontal, moveReturnValues.nextVertical);
                     }
                     else
                     {
-                        Message.IllegalDirection();
-                        continue;
-                    }
-
-                    if (isIllegal)
-                    {
-                        Message.OutOfBounds(nextHorizontal, nextVertical);
-                    }
-                    else
-                    {
-                        currentHorizontal = nextHorizontal;
-                        currentVertical = nextVertical;
+                        currentHorizontal = moveReturnValues.nextHorizontal;
+                        currentVertical = moveReturnValues.nextVertical;
 
                         var pos = new Position { Horizontal = currentHorizontal, Vertical = currentVertical };
                         positionLog.Add(pos);
@@ -143,6 +111,48 @@ namespace ProBot
             }
 
             return string.Empty;
+        }
+
+        public (int nextHorizontal, int nextVertical, bool isIllegal) Move(Direction currentDirection, int currentHorizontal, int currentVertical)
+        {
+            int nextHorizontal = 0;
+            int nextVertical = 0;
+            bool isIllegal = false;
+
+            if (currentDirection == Direction.NORTH)
+            {
+                nextHorizontal = currentHorizontal;
+                nextVertical = currentVertical + 1;
+
+                isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
+            }
+            else if (currentDirection == Direction.EAST)
+            {
+                nextHorizontal = currentHorizontal + 1;
+                nextVertical = currentVertical;
+
+                isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
+            }
+            else if (currentDirection == Direction.SOUTH)
+            {
+                nextHorizontal = currentHorizontal;
+                nextVertical = currentVertical - 1;
+
+                isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
+            }
+            else if (currentDirection == Direction.WEST)
+            {
+                nextHorizontal = currentHorizontal - 1;
+                nextVertical = currentVertical;
+
+                isIllegal = CheckForIllegalMove(nextHorizontal, nextVertical);
+            }
+            else
+            {
+                Message.IllegalDirection();
+            }
+
+            return (nextHorizontal, nextVertical, isIllegal);
         }
 
         public bool CheckForIllegalMove(int horizontal, int vertical)
