@@ -12,7 +12,10 @@ The following types of instructions are accepted:
 
 PLACE n,n,[Direction] 
 
-The PLACE command and N variables sets the inital placement of the robot. 
+The PLACE command sets the inital placement of the robot.
+
+the n variables represents the starting coordinates should be replaced by integers. The first integer represents the X axis and the second one the Y axis. Valid coordinates are within the span of 0-4. 
+
 Direction states in which direction the robot is facing. Valid directions are NORTH, SOUTH, WEST, EAST.
 
 Be sure to get the commas in the correct order.
