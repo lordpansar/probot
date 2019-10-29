@@ -98,5 +98,19 @@ namespace ProBot.Tests
 
             Assert.Equal(expected, parsedPositions[0].Vertical);
         }
+
+        [Fact]
+        public void AssertThatMovesArePerformedCorrectly()
+        {
+            var horizontal = 0;
+            var vertical = 0;
+            var direction = Direction.NORTH;
+
+            var coordinates = movementService.Move(direction, horizontal, vertical);
+
+            Assert.Equal(0, coordinates.nextHorizontal);
+            Assert.Equal(1, coordinates.nextVertical);
+            Assert.False(coordinates.isIllegal);
+        }
     }
 }
